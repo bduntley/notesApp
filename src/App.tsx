@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import './index.scss';
 
-function App() {
+function Demo() {
+const [notes, setNotes]= useState<string[]>([""])
+
+useEffect(() => {
+  document.getElementById("note" + (notes.length - 1))?.focus()
+}, [notes.length]);
+
+
+function addNewNote(){
+  setNotes([...notes, ""])
+}
+
+function handleBlur(noteIndex: number, e: any){
+  const newNotes: string[] = [...notes]
+  newNotes[noteIndex] = e.target.value;
+  setNotes(newNotes)
+}
+
+function deleteNote(noteIndex: number){
+  let newNotes = [...notes]
+  newNotes.splice(noteIndex, 1)
+  setNotes(newNotes)
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="demo">
+      <div className="container">
+      <div className="new_note" onClick={addNewNote}>+   New note</div>
+      <hr/>
+      {notes.map((note, index) => (
+        <div className="note"  key={"note" + index}        >
+          <span onClick={(e)=>{deleteNote(index)}}>x</span>
+        <textarea
+          id={"note" + index}
+          onChange={(e)=>{handleBlur(index, e)}}
+          placeholder="Type here..."
+          value={note}
+        />
+        </div>
+      ))}
+      </div>
     </div>
   );
 }
 
-export default App;
+export default Demo;
