@@ -13,7 +13,7 @@ function addNewNote(){
   setNotes([...notes, ""])
 }
 
-function handleBlur(noteIndex: number, e: any){
+function handleChange(noteIndex: number, e: any){
   const newNotes: string[] = [...notes]
   newNotes[noteIndex] = e.target.value;
   setNotes(newNotes)
@@ -35,7 +35,7 @@ function deleteNote(noteIndex: number){
           <span onClick={(e)=>{deleteNote(index)}}>x</span>
         <textarea
           id={"note" + index}
-          onChange={(e)=>{handleBlur(index, e)}}
+          onChange={(e)=>{handleChange(index, e)}}
           placeholder="Type here..."
           value={note}
         />
