@@ -14,18 +14,15 @@ app.set("view engine", "jade");
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cors({ credentials: true, origin: process.env.REACT_APP_APP_ROOT }));
+app.use(cors({ credentials: true, origin: process.env.APP_ROOT }));
 app.use("/api/demo", demoRouter);
 app.use(logger("dev"));
 
-const conString =
-  "postgres://cklvedcewjnpka:1473103b4bf9f4ba91480686a557c2d7558befe71d898105d18e78a53d22c878@ec2-18-210-233-138.compute-1.amazonaws.com:5432/d5c871qibdlseo";
-
 const client = new Client({
-  user: "cklvedcewjnpka",
-  host: "ec2-18-210-233-138.compute-1.amazonaws.com",
-  database: "d5c871qibdlseo",
-  password: "1473103b4bf9f4ba91480686a557c2d7558befe71d898105d18e78a53d22c878",
+  user: process.env.USER,
+  host: process.env.HOST,
+  database: process.env.DB,
+  password: process.env.PASSWORD,
   port: 5432,
   ssl: true,
 });
