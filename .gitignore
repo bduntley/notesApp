@@ -1,2 +1,4 @@
 node_modules/*
 yarn.lock
+src/backend/node_modules/*
+src/backend/.env
